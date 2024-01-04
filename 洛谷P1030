@@ -1,0 +1,19 @@
+#include<iostream>
+#include<string>
+using namespace std;
+void preorder(string in,string after){
+    if(in.length() == 0) return;
+    int length = after.length();
+    char root = after[after.length() - 1];
+    cout << root;
+    int len = in.find(root);
+    preorder(in.substr(0,len),after.substr(0,len));
+    preorder(in.substr(len + 1),after.substr(len,length - len - 1));
+}
+int main(){
+    string mid,after;
+    cin >> mid >> after;
+    preorder(mid,after);
+    cout << endl;
+    return 0;
+}
