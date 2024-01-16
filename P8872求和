@@ -1,0 +1,24 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+const int N = 200010;
+int a[N];
+long long sum[N];
+int main(){
+    int n;
+    cin >> n;
+    long long ans;
+    memset(sum,0,sizeof(sum));
+    for(int i = 1;i <= n;i ++){
+        cin >> a[i];
+        sum[i] = sum[i - 1] + a[i];
+    }
+    
+    for(int i = 1;i <= n;i ++){
+        ans += (sum[n] - sum[i] ) * a[i];
+    }
+    
+    cout << ans << endl;
+    
+    return 0;
+}
