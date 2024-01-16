@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+const int N = 1000010;
+#define ll long long
+int a[N];
+int main(){
+    ll n;
+    cin >> n;
+    for(ll i = 0;i < n;i ++){
+        ll times;
+        ll index = 0;
+        cin >> times;
+        for(ll j = 0;j < times;j ++){
+            string option;
+            cin >> option;
+            if(option == "push"){
+                ll new1;
+                cin >> new1;
+                a[index ++] = new1;
+            }
+            else if(option == "query"){
+                if(index == 0) cout << "Anguei!" << endl;
+                else cout << a[index - 1] << endl;
+            }
+            else if(option == "pop"){
+                if(index == 0) cout << "Empty" << endl;
+                else {
+                    index --;
+                }
+            }
+            else if(option == "size"){
+                cout << index << endl;
+            }
+        }
+    }
+}
