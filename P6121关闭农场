@@ -1,0 +1,73 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+const int N = 200010;
+int head[N];
+int p[N];
+int del[N];
+int vis[N];
+int ans[N];
+int cnt = 0;
+struct node{
+    int from , to , next;
+}edge[N];
+int find(int x){
+    if(x != p[x]) p[x] = find(p[x]);
+    return p[x];
+}
+void init(int m){
+    for(int i = 1;i <= m;i ++){
+        p[i] = i;
+    }
+    for(int i = 0;i <= m;i ++){
+        head[i] = -1;
+    }
+    for(int i = 1;i <= m;i ++){
+        vis[i] = 0;
+    }
+}
+void add_edge(int u,int v){
+    edge[++ cnt].from = u;
+    edge[cnt].to = v;
+    edge[cnt].next = head[u];
+    head[u]= cnt;
+}
+int main(){
+    int n,m;
+    int k = 0;
+    cin >> n >> m;
+    init(max(n,m));
+    int u,v;
+    for(int i = 0;i < m;i ++){
+        cin >> u >> v;
+        add_edge(u,v);
+        add_edge(v,u);
+    }
+    for(int i = 1;i <= n;i ++){
+        cin >> del[i];
+    }
+    vis[del[n]] = 1;
+    ans[n] = 1;
+    for(int i = n - 1;i >= 1;i --){
+        vis[del[i]] = 1;
+        for(int j = head[del[i]];j != -1;j = edge[j].next){
+            if(vis[edge[j].to] == 1){
+                int x = find(del[i]),y = find(edge[j].to);
+                if(x != y){
+                    k ++;
+                    p[x] = y;
+                }
+            }
+        }
+        cout << k << endl;
+        if(k == n - i) ans[i] = 1;
+        else ans[i] = 0;
+    }
+    
+    for(int i = 1;i <= n;i ++){
+        if(ans[i] == 1)cout << "Yes" << endl;
+        else cout << "No" << endl;
+    }
+    
+    return 0;
+}
