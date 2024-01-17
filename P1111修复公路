@@ -1,0 +1,51 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+const int Q = 100010;
+typedef struct node{
+    int x,y,t;
+};
+int p[Q];
+bool cmp(node a,node b){
+    return a.t < b.t;
+}
+int find(int x){
+    if(p[x] != x) p[x] = find(p[x]);
+    return p[x];
+}
+bool check(int n){
+    int ans = 0;
+    for(int i = 1;i <= n;i ++){
+        if(p[i] == i) ans ++;
+        // cout << ans << endl;
+        if(ans == 2) return false;
+    }
+    if(ans == 1) return true;
+}
+int main(){
+    int N,M;
+    int i;
+    cin >> N >> M;
+    node a[Q];
+    for(i = 1;i <= N;i ++){
+        p[i] = i;
+    }
+    for(i = 1;i <= M;i ++){
+        cin >> a[i].x >> a[i].y >> a[i].t;
+    }
+    sort(a + 1,a + M + 1,cmp);
+    for(i = 1;i <= M;i ++){
+        p[find(a[i].x)] = find(a[i].y);
+    //     for(int i = 1;i <= N;i ++){
+    //     cout << p[i] << " ";
+    // }
+    // cout << endl;
+        if(check(N)){
+            cout << a[i].t << endl;
+            return 0;
+        }
+    }
+    
+    cout << "-1" << endl;
+    return 0;
+}
