@@ -1,0 +1,16 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int main(){
+    string front;
+    string back;
+    cin >> front >> back;
+    int ans = 0;
+    for(size_t i = 0;i < front.length();i ++){
+        for(size_t j = 0;j < back.length();j ++){
+            if( j >= 1 && i + 1 < front.length() && front[i] == back[j] && front[i + 1] == back[j - 1]) ans ++;
+        }
+    }
+    
+    cout << (1 << ans);
+}
