@@ -1,0 +1,29 @@
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+#include<cmath>
+#define ll long long
+using namespace std;
+void printtree(string str){
+    if(str.length() > 1){
+        printtree(str.substr(0,str.length() / 2));
+        printtree(str.substr(str.length() / 2));
+    }
+    int zero = 0,one = 0;
+    for(int i = 0;i < str.length();i ++){
+        if(str[i] == '0') zero ++;
+        else one ++;
+    }
+    
+    if(one >= 1 && zero >= 1) cout << 'F';
+    else if(one >= 1) cout << 'I';
+    else cout << 'B';
+}
+int main(){
+    int n;
+    cin >> n;
+    string str;
+    cin >> str;
+    printtree(str);
+    return 0;
+}
