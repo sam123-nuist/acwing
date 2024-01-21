@@ -1,0 +1,36 @@
+
+#include<iostream>
+using namespace std;
+const int N = 100010;
+#define ll signed long long int
+ll a[N];
+ll n;
+ll lowbit(ll x){
+    return x & (-x);
+}
+void add(ll x,ll y){
+    for(ll i = x;i < n;i += lowbit(i)){
+        a[i] += y;
+    }
+}
+
+ll ask(ll x){
+    ll ans = 0;
+    for(ll i = x;i;i -= lowbit(i)){
+        ans += a[i];
+    }
+    return ans;
+}
+int main(){
+    ll w;
+    cin >> n >> w;
+    char type;
+    ll x,y;
+    for(ll i = 0;i < w;i ++){
+        cin >> type >> x >> y;
+        if(type == 'x') add(x,y);
+        else cout << ask(y) - ask(x - 1) << endl;
+    }
+    
+    return 0;
+}
