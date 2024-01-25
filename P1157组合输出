@@ -1,0 +1,33 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+const int N = 30;
+int pd[N],used[N];
+int n,r;
+void print(){
+    for(int i = 1;i <= r;i ++){
+        cout << setw(3) << used[i];
+    }
+    
+    cout << endl;
+}
+
+void dfs(int k,int start){
+    if(k == r){
+        print();
+        return;
+    }
+    for(int i = start;i <= n;i ++){
+        if(!pd[i]){
+            pd[i] = 1;
+            used[k + 1] = i;
+            dfs(k + 1,i + 1);
+            pd[i] = 0;
+        }
+    }
+}
+int main(){
+    cin >> n >> r;
+    dfs(0,1);
+    return 0;
+}
