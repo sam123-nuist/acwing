@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+const int N = 200;
+struct Node{
+    char l,r;
+};
+Node tree[N];
+void dfs(char start){
+    cout << start;
+    if(tree[start].l != '*') dfs(tree[start].l);
+    if(tree[start].r != '*') dfs(tree[start].r);
+}
+int main(){
+    int n;
+    cin >> n;
+    char first;
+    char a,l,r;
+    cin >> first >> l >> r;
+    tree[first].l = l;
+    tree[first].r = r;
+    for(int i = 0;i < n - 1;i ++){
+        cin >> a >> l >> r;
+        tree[a].l = l;
+        tree[a].r = r;
+    }
+    dfs(first);
+    return 0;
+}
